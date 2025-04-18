@@ -3,7 +3,7 @@
 
 	FrankC is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
+	the Free Software frank_foundation, either version 3 of the License, or
 	any later version.
 
 	FrankC is distributed in the hope that it will be useful,
@@ -29,9 +29,9 @@
 #define LIBFRANK_ANGER_THRESHOLD 5
 
 char frank_response[LIBFRANK_LENGTH_STRING] = "Frank is waiting...";
-char isLocked = 0;
+char frank_isLocked = 0;
 
-unsigned char angerLevel = 0;
+unsigned char frank_angerLevel = 0;
 
 static char isBoopingSnoot(char *input) {
 	char found = 0;
@@ -79,35 +79,35 @@ static char isDenyingRat(char *input) {
 }
 
 void frank_chat(char *input) {
-	if (isLocked) {
+	if (frank_isLocked) {
 		if (includesString(input, "dingus")) {
-			isLocked = 0;
-			angerLevel = 0;
+			frank_isLocked = 0;
+			frank_angerLevel = 0;
 			strcpy(frank_response, "Frank is back. What do you want?");
 		} else {
 			strcpy(frank_response, "Frank is digesting. You need to say the magic word to wake her up.");
 		}
 	} else if (isDenyingRat(input)) { /* In the original, it checks for "rat" and "give" or "feed", before checking this */
-		angerLevel++;
-		if (angerLevel < LIBFRANK_ANGER_THRESHOLD) {
+		frank_angerLevel++;
+		if (frank_angerLevel < LIBFRANK_ANGER_THRESHOLD) {
 			strcpy(frank_response, arrayRandom(frankArrays_sadResponses));
 		} else {
 			strcpy(frank_response, arrayRandom(frankArrays_highAngerResponses));
 		}
 	} else if (includesString(input, "rat") && (includesString(input, "give") || includesString(input, "feed"))) {
 		if (rand() < RAND_MAX / 10) {
-			if (angerLevel - 1 > 0) {
-				angerLevel -= 1;
+			if (frank_angerLevel - 1 > 0) {
+				frank_angerLevel -= 1;
 			} else {
-				angerLevel = 0;
+				frank_angerLevel = 0;
 			}
 			strcpy(frank_response, "*Frank snatches the rat and drags it around for 2 hours*");
-			isLocked = 1;
+			frank_isLocked = 1;
 			strcat(frank_response, "\n Frank is digesting. You need to say the magic word to wake her up.");
 		} else {
 			strcpy(frank_response, arrayRandom(frankArrays_feedingFailureResponses));
 		}
-	} else if (angerLevel >= LIBFRANK_ANGER_THRESHOLD) {
+	} else if (frank_angerLevel >= LIBFRANK_ANGER_THRESHOLD) {
 		strcpy(frank_response, arrayRandom(frankArrays_highAngerResponses));
 	} else if (includesString(input, "quail")) {
 		strcpy(frank_response, "FRANK IS BANNED FROM QUAILS.");
