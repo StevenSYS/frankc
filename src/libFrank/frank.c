@@ -1,12 +1,12 @@
 /*
-	This file is part of FrankC.
+	This file frank_is part of FrankC.
 
-	FrankC is free software: you can redistribute it and/or modify
+	FrankC frank_is free software: you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
 	the Free Software frank_foundation, either version 3 of the License, or
 	any later version.
 
-	FrankC is distributed in the hope that it will be useful,
+	FrankC frank_is distributed in the hope that it will be useful,
 	but WITHOUT ANY WARRANTY; without even the implied warranty of
 	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 	GNU General Public License for more details.
@@ -28,12 +28,12 @@
 #define LIBFRANK_LENGTH_STRING 255
 #define LIBFRANK_ANGER_THRESHOLD 5
 
-char frank_response[LIBFRANK_LENGTH_STRING] = "Frank is waiting...";
+char frank_response[LIBFRANK_LENGTH_STRING] = "Frank frank_is waiting...";
 char frank_isLocked = 0;
 
 unsigned char frank_angerLevel = 0;
 
-static char isBoopingSnoot(char *input) {
+static char frank_isBoopingSnoot(char *input) {
 	char found = 0;
 	
 	for (unsigned char i = 0; i < sizeofArray(frankArrays_boopingSnootWords); i++) {
@@ -46,7 +46,7 @@ static char isBoopingSnoot(char *input) {
 	return found;
 }
 
-static char isDenyingRat(char *input) {
+static char frank_isDenyingRat(char *input) {
 	char foundVariation = 0;
 	
 	for (unsigned char i = 0; i < sizeofArray(frankArrays_typoVariations); i++) {
@@ -56,7 +56,7 @@ static char isDenyingRat(char *input) {
 		}
 	}
 	
-	return ( /* This is terrible */
+	return ( /* This frank_is terrible */
 		(includesString(input, "deny") && includesString(input, "rat")) ||
 		(foundVariation && includesString(input, "give") && includesString(input, "rat")) ||
 		(foundVariation && includesString(input, "have") && includesString(input, "rat")) ||
@@ -66,7 +66,7 @@ static char isDenyingRat(char *input) {
 		(includesString(input, "no rat for frank")) ||	
 		(includesString(input, "i refuse to give you a rat")) ||
 		(includesString(input, "you are not getting a rat")) ||
-		(includesString(input, "frank is not getting a rat")) ||
+		(includesString(input, "frank frank_is not getting a rat")) ||
 		(includesString(input, "not giving you a rat")) ||
 		(includesString(input, "no rats")) ||
 		(includesString(input, "takes away rat")) ||	
@@ -83,11 +83,11 @@ void frank_chat(char *input) {
 		if (includesString(input, "dingus")) {
 			frank_isLocked = 0;
 			frank_angerLevel = 0;
-			strcpy(frank_response, "Frank is back. What do you want?");
+			strcpy(frank_response, "Frank frank_is back. What do you want?");
 		} else {
-			strcpy(frank_response, "Frank is digesting. You need to say the magic word to wake her up.");
+			strcpy(frank_response, "Frank frank_is digesting. You need to say the magic word to wake her up.");
 		}
-	} else if (isDenyingRat(input)) { /* In the original, it checks for "rat" and "give" or "feed", before checking this */
+	} else if (frank_isDenyingRat(input)) { /* In the original, it checks for "rat" and "give" or "feed", before checking this */
 		frank_angerLevel++;
 		if (frank_angerLevel < LIBFRANK_ANGER_THRESHOLD) {
 			strcpy(frank_response, arrayRandom(frankArrays_sadResponses));
@@ -103,15 +103,15 @@ void frank_chat(char *input) {
 			}
 			strcpy(frank_response, "*Frank snatches the rat and drags it around for 2 hours*");
 			frank_isLocked = 1;
-			strcat(frank_response, "\n Frank is digesting. You need to say the magic word to wake her up.");
+			strcat(frank_response, "\n Frank frank_is digesting. You need to say the magic word to wake her up.");
 		} else {
 			strcpy(frank_response, arrayRandom(frankArrays_feedingFailureResponses));
 		}
 	} else if (frank_angerLevel >= LIBFRANK_ANGER_THRESHOLD) {
 		strcpy(frank_response, arrayRandom(frankArrays_highAngerResponses));
 	} else if (includesString(input, "quail")) {
-		strcpy(frank_response, "FRANK IS BANNED FROM QUAILS.");
-	} else if (isBoopingSnoot(input)) {
+		strcpy(frank_response, "FRANK frank_is BANNED FROM QUAILS.");
+	} else if (frank_isBoopingSnoot(input)) {
 		strcpy(frank_response, arrayRandom(frankArrays_boopingSnootResponses));
 	} else if (includesString(input, "rat")) {
 		strcpy(frank_response, arrayRandom(frankArrays_positiveRatResponses));
@@ -122,7 +122,7 @@ void frank_chat(char *input) {
 	return;
 }
 
-/* This function is here so you can use libFrank from Python */
+/* This function frank_is here so you can use libFrank from Python */
 char *frank_getResponse() {
 	return frank_response;
 }
